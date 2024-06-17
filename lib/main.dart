@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_web/widgets/product_text_widget.dart';
 import 'package:flutter_application_web/widgets/top_bar_desktop.dart';
 
 import 'widgets/mobile_drawer.dart';
@@ -32,6 +33,16 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController searchController = TextEditingController();
   // ignore: prefer_final_fields
   FocusNode _focusNode = FocusNode();
+  final ScrollController _scrollController = ScrollController();
+  final double _scrollAmount = 450.0; // Adjust this value to scroll by a different amount
+
+  void _scrollRight() {
+    _scrollController.animateTo(
+      _scrollController.position.pixels + _scrollAmount,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
 
   @override
   void initState() {
@@ -51,12 +62,14 @@ class _MyHomePageState extends State<MyHomePage> {
   void dispose() {
     // Clean up the focus node when the widget is disposed
     _focusNode.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         drawer: Responsive.isMobile(context) ? AppDrawer() : null,
         appBar: Responsive.isMobile(context)
             ? AppBar(
@@ -92,31 +105,168 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: ClipPath(
                     clipper: CustomClipPath(),
                     child: Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       height: 500,
                       color: const Color.fromARGB(255, 255, 193, 132),
-                      child: const Center(
-                          child: SelectableText(
-                        "We produce high-quality furniture for lifestyle",
-                        style: TextStyle(
-                            fontFamily: "Klapa",
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold),
-                      )),
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: Image(
+                              image: const AssetImage(
+                                  "assets/images/background_full.png"),
+                              width: MediaQuery.of(context).size.width,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          const Center(
+                              child: SelectableText(
+                            "We produce high-quality furniture for lifestyle",
+                            style: TextStyle(
+                                fontFamily: "Klapa",
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold),
+                          )),
+                        ],
+                      ),
                     ),
                   ),
                 ),
+                // part 2
                 Flexible(
                   child: Container(
-                      color: Colors.black,
+                      color: Colors.white,
+                      margin: const EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.all(20),
                       height: 300,
-                      child: const Center(
-                        child: Text(
-                          "Our Products",
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold),
-                        ),
-                      )),
+                      child: LayoutBuilder(builder: (context, constraints) {
+                        if (constraints.maxWidth < 500) {
+                          // Mobile layout
+                          return SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            controller: _scrollController,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 450,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("01",
+                                          style: const TextStyle(fontSize: 30)),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      const SelectableText.rich(TextSpan(
+                                          text: 'The combination of ',
+                                          style: TextStyle(fontSize: 20),
+                                          children: [
+                                            TextSpan(
+                                                text:
+                                                    'sophisticated design and unbridled comfort ',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            TextSpan(
+                                                text:
+                                                    'in our new living room solutions')
+                                          ])),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          _scrollRight();
+                                        },
+                                        child: Icon(
+                                          Icons.arrow_forward,
+                                          size: 30,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: 400,
+                                  height: 200,
+                                  color: Colors.grey,
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Container(
+                                  width: 400,
+                                  height: 200,
+                                  color: Colors.grey,
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Container(
+                                  width: 400,
+                                  height: 200,
+                                  color: Colors.grey,
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Container(
+                                  width: 400,
+                                  height: 200,
+                                  color: Colors.grey,
+                                )
+                              ],
+                            ),
+                          );
+                        } else {
+                          return SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text("01",
+                                    style: TextStyle(fontSize: 25)),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                const ProductTextWidget(),
+                                const SizedBox(
+                                  width: 30,
+                                ),
+                                Container(
+                                  width: 400,
+                                  height: 200,
+                                  color: Colors.grey,
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Container(
+                                  width: 400,
+                                  height: 200,
+                                  color: Colors.grey,
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Container(
+                                  width: 400,
+                                  height: 200,
+                                  color: Colors.grey,
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Container(
+                                  width: 400,
+                                  height: 200,
+                                  color: Colors.grey,
+                                )
+                              ],
+                            ),
+                          );
+                        }
+                      })),
                 ),
                 Flexible(
                   child: Container(
@@ -157,7 +307,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ],
                       )
-                    : SizedBox();
+                    : const SizedBox();
               } else if (constraints.maxWidth < 1200) {
                 return TopBarDesktop(
                   isSearchClicked: isSearchClicked,
