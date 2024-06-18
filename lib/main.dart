@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _scrollRight() {
     _scrollController.animateTo(
       _scrollController.position.pixels + _scrollAmount,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
   }
@@ -152,8 +152,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text("01",
-                                          style: const TextStyle(fontSize: 30)),
+                                      const Text("01",
+                                          style: TextStyle(fontSize: 30)),
                                       const SizedBox(
                                         height: 20,
                                       ),
@@ -178,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         onTap: () {
                                           _scrollRight();
                                         },
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.arrow_forward,
                                           size: 30,
                                         ),
@@ -222,10 +222,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           return SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const Text("01",
-                                    style: TextStyle(fontSize: 25)),
+                                const Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Text("01",
+                                      style: TextStyle(fontSize: 25)),
+                                ),
                                 const SizedBox(
                                   width: 20,
                                 ),

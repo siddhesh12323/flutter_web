@@ -26,6 +26,9 @@ class ProductTextWidget extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold)),
             TextSpan(text: 'in our new living room solutions')
           ])),
+          const SizedBox(
+            height: 20,
+          ),
         ],
       ),
     );
