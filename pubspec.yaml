@@ -47,43 +47,32 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
 flutter:
 
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/background.png
     - assets/images/background_full.png
+    - assets/images/logo.png
+    - assets/images/birstol.png
+    - assets/images/lomax.png
+    - assets/images/rotterdam.png
+    - assets/images/globus.png
 
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
   fonts:
     - family: Mona-Sans-Light
       fonts:
         - asset: assets/fonts/Mona-Sans.ttf
-    - family: Mona-Sans-Bold
+    - family: Mona-Sans-Black
       fonts:
         - asset: assets/fonts/Mona-Sans-Black.ttf
+    - family: Mona-Sans-Medium
+      fonts:
+        - asset: assets/fonts/Mona-Sans-Medium.ttf
+    - family: Mona-Sans-Bold
+      fonts:
+        - asset: assets/fonts/Mona-Sans-Bold.ttf
     - family: Klapa
       fonts:
         - asset: assets/fonts/klapa.ttf
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatefulWidget {
+  const AppDrawer({super.key});
+
   @override
   State<AppDrawer> createState() => _AppDrawerState();
 }
@@ -27,8 +29,8 @@ class _AppDrawerState extends State<AppDrawer> {
           ],
           ),
           ListTile(title: const Text('GALLERY'), onTap: () {},),
-          ListTile(title: Text('ABOUT'), onTap: () {}),
-          ListTile(title: Text('CONTACT'), onTap: () {},),
+          ListTile(title: const Text('ABOUT'), onTap: () {}),
+          ListTile(title: const Text('CONTACT'), onTap: () {},),
         ],
       ),
     );

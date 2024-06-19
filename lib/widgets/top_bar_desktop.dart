@@ -1,4 +1,7 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:flutter_application_web/widgets/hover_items.dart';
 import 'package:flutter_application_web/widgets/navigation_bar.dart';
 
 class TopBarDesktop extends StatefulWidget {
@@ -21,17 +24,15 @@ class _TopBarDesktopState extends State<TopBarDesktop> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
-  void showOverlay(String itemName) {
+  void showOverlay(List<String> itemNames) {
     final overlay = Overlay.of(context);
     final renderBox = context.findRenderObject() as RenderBox;
     final size = renderBox.size;
@@ -43,7 +44,7 @@ class _TopBarDesktopState extends State<TopBarDesktop> {
               link: layerLink,
               showWhenUnlinked: false,
               offset: Offset(0, offset.dy + size.height - 4),
-              child: buildOverlay(itemName))),
+              child: HoverItems(itemNames: itemNames))),
     );
     overlay.insert(entry!);
   }
@@ -51,14 +52,6 @@ class _TopBarDesktopState extends State<TopBarDesktop> {
   void hideOverlay() {
     entry?.remove();
     entry = null;
-  }
-
-  Widget buildOverlay(String itemName) {
-    return Container(
-      height: 150,
-      color: Colors.white,
-      child: Text(itemName, style: const TextStyle(fontSize: 25)),
-    );
   }
 
   @override
@@ -71,7 +64,13 @@ class _TopBarDesktopState extends State<TopBarDesktop> {
         child: Row(
           children: [
             const SizedBox(width: 20),
-            const Text("Liberetty", style: TextStyle(fontSize: 25)),
+            // const Text("Liberetty", style: TextStyle(fontSize: 25)),
+            const Image(
+                              image: AssetImage(
+                                  "assets/images/logo.png"),
+                              width: 100,
+                              // fit: BoxFit.fill,
+                            ),
             const Spacer(),
             // nav bar items
             NavItem(title: "PRODUCTS", addDropDown: true, showOverlay: showOverlay, hideOverlay: hideOverlay),

@@ -1,8 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_application_web/widgets/product_text_widget.dart';
-import 'package:flutter_application_web/widgets/top_bar_desktop.dart';
+// ignore_for_file: prefer_final_fields
 
+import 'package:flutter/material.dart';
 import 'widgets/mobile_drawer.dart';
+import 'widgets/product_card.dart';
+import 'widgets/product_text_widget.dart';
+import 'widgets/product_text_widget_mobile.dart';
+import 'widgets/top_bar_desktop.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,10 +34,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool isSearchClicked = false;
   TextEditingController searchController = TextEditingController();
-  // ignore: prefer_final_fields
   FocusNode _focusNode = FocusNode();
   final ScrollController _scrollController = ScrollController();
-  final double _scrollAmount = 450.0; // Adjust this value to scroll by a different amount
+  final double _scrollAmount = 450.0;
 
   void _scrollRight() {
     _scrollController.animateTo(
@@ -47,7 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    // Add listener to the focus node
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
         // The TextField lost focus
@@ -60,7 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
-    // Clean up the focus node when the widget is disposed
     _focusNode.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -70,11 +70,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        drawer: Responsive.isMobile(context) ? AppDrawer() : null,
+        drawer: Responsive.isMobile(context) ? const AppDrawer() : null,
         appBar: Responsive.isMobile(context)
             ? AppBar(
                 backgroundColor: Colors.white,
-                title: const Text("Liberetty", style: TextStyle(fontSize: 25)),
+                title:
+                    const Image(
+                  image: AssetImage("assets/images/logo.png"),
+                  width: 100,
+                  // fit: BoxFit.fill,
+                ),
                 actions: [
                   Row(
                     children: [
@@ -135,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Flexible(
                   child: Container(
                       color: Colors.white,
-                      margin: const EdgeInsets.only(top: 10),
+                      margin: const EdgeInsets.only(top: 40),
                       padding: const EdgeInsets.all(20),
                       height: 300,
                       child: LayoutBuilder(builder: (context, constraints) {
@@ -147,33 +152,14 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                // ignore: sized_box_for_whitespace
                                 Container(
                                   width: 450,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      const Text("01",
-                                          style: TextStyle(fontSize: 30)),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      const SelectableText.rich(TextSpan(
-                                          text: 'The combination of ',
-                                          style: TextStyle(fontSize: 20),
-                                          children: [
-                                            TextSpan(
-                                                text:
-                                                    'sophisticated design and unbridled comfort ',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            TextSpan(
-                                                text:
-                                                    'in our new living room solutions')
-                                          ])),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
+                                      const ProductTextWidgetMobile(),
                                       InkWell(
                                         onTap: () {
                                           _scrollRight();
@@ -186,35 +172,44 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ],
                                   ),
                                 ),
-                                Container(
-                                  width: 400,
-                                  height: 200,
-                                  color: Colors.grey,
+                                ProductCard(
+                                  textColor:
+                                      const Color.fromARGB(255, 231, 201, 102),
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 245, 209, 183),
+                                  productName: "Rotterdam Dining Room Chair",
+                                  productImage: "assets/images/rotterdam.png",
                                 ),
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                Container(
-                                  width: 400,
-                                  height: 200,
-                                  color: Colors.grey,
-                                ),
+                                ProductCard(
+                                    textColor: const Color.fromARGB(
+                                        255, 106, 153, 127),
+                                    backgroundColor: const Color.fromARGB(
+                                        255, 228, 228, 228),
+                                    productName: "Lomax Chair",
+                                    productImage: "assets/images/lomax.png"),
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                Container(
-                                  width: 400,
-                                  height: 200,
-                                  color: Colors.grey,
-                                ),
+                                ProductCard(
+                                    textColor: const Color.fromARGB(
+                                        255, 193, 151, 140),
+                                    backgroundColor: const Color.fromARGB(
+                                        255, 179, 177, 191),
+                                    productName: "Lomax Chair",
+                                    productImage: "assets/images/birstol.png"),
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                Container(
-                                  width: 400,
-                                  height: 200,
-                                  color: Colors.grey,
-                                )
+                                ProductCard(
+                                    textColor:
+                                        const Color.fromARGB(255, 193, 82, 55),
+                                    backgroundColor: const Color.fromARGB(
+                                        255, 215, 167, 125),
+                                    productName: "Globus Chair",
+                                    productImage: "assets/images/globus.png"),
                               ],
                             ),
                           );
@@ -236,35 +231,44 @@ class _MyHomePageState extends State<MyHomePage> {
                                 const SizedBox(
                                   width: 30,
                                 ),
-                                Container(
-                                  width: 400,
-                                  height: 200,
-                                  color: Colors.grey,
+                                ProductCard(
+                                  textColor:
+                                      const Color.fromARGB(255, 231, 201, 102),
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 245, 209, 183),
+                                  productName: "Rotterdam Dining Room Chair",
+                                  productImage: "assets/images/rotterdam.png",
                                 ),
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                Container(
-                                  width: 400,
-                                  height: 200,
-                                  color: Colors.grey,
-                                ),
+                                ProductCard(
+                                    textColor: const Color.fromARGB(
+                                        255, 106, 153, 127),
+                                    backgroundColor: const Color.fromARGB(
+                                        255, 228, 228, 228),
+                                    productName: "Lomax Chair",
+                                    productImage: "assets/images/lomax.png"),
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                Container(
-                                  width: 400,
-                                  height: 200,
-                                  color: Colors.grey,
-                                ),
+                                ProductCard(
+                                    textColor: const Color.fromARGB(
+                                        255, 193, 151, 140),
+                                    backgroundColor: const Color.fromARGB(
+                                        255, 179, 177, 191),
+                                    productName: "Lomax Chair",
+                                    productImage: "assets/images/birstol.png"),
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                Container(
-                                  width: 400,
-                                  height: 200,
-                                  color: Colors.grey,
-                                )
+                                ProductCard(
+                                    textColor:
+                                        const Color.fromARGB(255, 193, 82, 55),
+                                    backgroundColor: const Color.fromARGB(
+                                        255, 215, 167, 125),
+                                    productName: "Globus Chair",
+                                    productImage: "assets/images/globus.png"),
                               ],
                             ),
                           );
@@ -275,6 +279,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Container(
                     color: Colors.blue,
                     height: 300,
+                    child: const Center(
+                      child: Text("REMAINING CONTENT GOES HERE"),
+                    ),
                   ),
                 )
               ],
